@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 import hljs from 'highlight.js';
 import styles from './style/index.less';
+import Canvas from './Canvas';
 
 hljs.configure({
   tabReplace: '  ', // 2 spaces
@@ -58,13 +59,23 @@ export default class Markdown extends React.Component {
           className={classNames('markdown', styles.markdown)}
           source={this.state.markdownStr}
           escapeHtml={false}
-          allowNode={(node) => {
+          renderers={{
+            code: Canvas,
+          }}
+          allowNode={(node, index, parent) => {
             if (node.type === 'html') {
-              if (/<!--([^]+?)-->/.test(node.value)) return false;
+              // if (/<!--([^]+?)-->/.test(node.value)) return false;
               // const scriptValue = node.value.match(/<script.*?>(.*?)<\/script>/ig);
               // node.value.replace(/<script.*?>(.*?)<\/script>/, (te) => {
               //   console.log('te:', te);
               // });
+            }
+            // 判断 上一个节点是否为 <!--DemoStart -->
+            if (node.type === 'code' && parent.children && parent.children.length > 0 && parent.children[index - 1]) {
+              const parentNode = parent.children[index - 1];
+              if (parentNode.type === 'html' && /<!--\s?DemoStart\s?-->/.test(parentNode.value)) {
+                node.value = `__dome__${node.value}`;
+              }
             }
             return node;
           }}
