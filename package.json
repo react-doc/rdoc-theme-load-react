@@ -1,11 +1,11 @@
 {
   "name": "rdoc-theme-load-react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "BABEL_ENV=production babel --ignore=src/**/__test__ --ignore=node_modules --plugins transform-runtime src --out-dir lib --copy-files ",
-    "dev": "BABEL_ENV=production babel -w --ignore=src/**/__test__ --ignore=node_modules --plugins transform-runtime src --out-dir lib --copy-files ",
+    "build": "BABEL_ENV=production babel --ignore=src/**/__test__ src --out-dir lib --copy-files ",
+    "dev": "BABEL_ENV=production babel -w --ignore=src/**/__test__ src --out-dir lib --copy-files ",
     "start": "npm run dev & npm run lint:watch",
     "lint": "NODE_ENV=production eslint src",
     "lint:watch": "esw -w src",
@@ -14,6 +14,16 @@
   "keywords": [],
   "author": "",
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-watch": "^3.1.4"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@babel/standalone": "^7.0.0-beta.46",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -25,22 +35,11 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
-    "eslint-watch": "^3.1.4"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "@babel/standalone": "^7.0.0-beta.46",
     "classnames": "^2.2.5",
     "highlight.js": "^9.12.0",
     "react": "^16.3.2",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.3.2",
-    "react-hot-keys": "^1.1.0",
     "react-markdown": "^3.3.0",
     "react-router-dom": "^4.2.2"
   }

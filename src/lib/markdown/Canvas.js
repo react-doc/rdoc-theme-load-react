@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import * as Babel from '@babel/standalone';
 import styles from './style/Canvas.less';
-// import Hotkeys from 'react-hot-keys';
 
 export default class Canvas extends PureComponent {
   constructor() {
@@ -14,14 +13,13 @@ export default class Canvas extends PureComponent {
     this.playerId = `${parseInt(Math.random() * 1e9, 10).toString(36)}`;
   }
   componentDidMount() {
-    if (/^__dome__/.test(this.props.value)) {
+    if (/^__dome__/.test(this.props.value) && /^(js|jsx|javascript)$/.test(this.props.language)) {
       let code = this.props.value.replace(/__dome__/, '');
       const args = ['context', 'React', 'ReactDOM', 'Component'];
       const argv = [this, React, ReactDOM, Component];
       code = code.replace('mountNode', `document.getElementById('${this.playerId}')`);
       const codeNode = Babel.transform(code, { presets: ['es2015', 'react'] }).code;
       args.push(codeNode);
-      // console.log('code:', code, argv);
       new Function(...args).apply(null, argv); // eslint-disable-line
     }
   }
@@ -43,7 +41,7 @@ export default class Canvas extends PureComponent {
       return (
         <div className={styles.demo}>
           <div className={styles.demoBody} id={this.playerId}>
-            demo preview
+            {/^(html|htm)$/.test(this.props.language) && <div dangerouslySetInnerHTML={{ __html: code }} />}
           </div>
           {PreCode(this.state.height)}
           <div className={styles.demoControl} onClick={this.onClick.bind(this)}>

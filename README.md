@@ -1,6 +1,8 @@
 rdoc theme
 ---
 
+Preview React and HTML example.
+
 ```bash
 npm install rdoc-theme-load-react --save
 ```
